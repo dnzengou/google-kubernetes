@@ -510,9 +510,8 @@ In the right hand pane, paste in this HTML text:
 Use your local computer's keyboard shortcut to paste: `Cmd-V` for a Mac, `Ctrl-V` for a Windows or Linux machine.
 
 Replace the string REPLACE_WITH_CAT_URL with the URL of the cat image from an earlier task. The URL will look like this:
-Example (do not copy)
 
-https://storage.googleapis.com/qwiklabs-Google Cloud-1aeffbc5d0acb416/cat.jpg
+![source](https://storage.googleapis.com/qwiklabs-gcp-01-79c0b5cf7db1/cat.jpg)
 On the Navigation menu (Navigation menu ), click Compute Engine > VM instances.
 
 In the row for your first VM, click the SSH button.
