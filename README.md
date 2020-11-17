@@ -511,7 +511,7 @@ Use your local computer's keyboard shortcut to paste: `Cmd-V` for a Mac, `Ctrl-V
 
 Replace the string REPLACE_WITH_CAT_URL with the URL of the cat image from an earlier task. The URL will look like this:
 
-![source](img/cat.jpg)
+![source](img/assets/cat.jpg)
 (https://storage.googleapis.com/qwiklabs-gcp-01-79c0b5cf7db1/cat.jpg)
 
 Eg. https://storage.googleapis.com/qwiklabs-gcp-01-79c0b5cf7db1/cat.jpg
@@ -539,6 +539,8 @@ Install the nginx Web server and customize the welcome page.
 
 On the Navigation menu (Navigation menu ), click Compute Engine > VM instances. Click the link in the External IP column for your first VM. A new browser tab opens, containing a Web page that contains the cat image
 
+
+***
 
 
 ## Lab2: Working with Cloud Build
@@ -746,13 +748,330 @@ echo $?
 The command will reply with a non-zero value. If you had embedded this build in a script, your script would be able to act up on the build's failure.
 
 
-![print screen gbuild failure](img/lab2_gcloud-build.png)
+![print screen gbuild failure](img/assets/lab2_gcloud-build.png)
 
-![print screen gbuild shell ](img/lab2_gcloud-shell.png)
+![print screen gbuild shell ](img/assets/lab2_gcloud-shell.png)
 
 
 Click Check my progress to verify the objective.
 Build and Test Containers with a build configuration file and Cloud Build
+
+
+
+### Lab3: Deploying Google Kubernetes Engine
+1 hour
+Free
+Rate Lab
+Overview
+In this lab, you use the Google Cloud Console to build GKE clusters and deploy a sample Pod.
+
+Objectives
+In this lab, you learn how to perform the following tasks:
+
+Use the Google Cloud Console to build and manipulate GKE clusters
+
+Use the Google Cloud Console to deploy a Pod
+
+Use the Google Cloud Console to examine the cluster and Pods
+
+Task 0. Lab Setup
+Access Qwiklabs
+For each lab, you get a new GCP project and set of resources for a fixed time at no cost.
+
+Make sure you signed into Qwiklabs using an incognito window.
+
+Note the lab's access time (for example, img/time.png and make sure you can finish in that time block.
+
+There is no pause feature. You can restart if needed, but you have to start at the beginning.
+
+When ready, click img/start_lab.png.
+
+Note your lab credentials. You will use them to sign in to Cloud Platform Console. img/open_google_console.png
+
+Click Open Google Console.
+
+Click Use another account and copy/paste credentials for this lab into the prompts.
+
+If you use other credentials, you'll get errors or incur charges.
+
+Accept the terms and skip the recovery resource page.
+Do not click End Lab unless you are finished with the lab or want to restart it. This clears your work and removes the project.
+
+After you complete the initial sign-in steps, the project dashboard appears.
+
+c679b27aa332f22d.png
+
+Task 1. Deploy GKE clusters
+In this task, you use the Google Cloud Console and Cloud Shell to deploy GKE clusters.
+
+Use the Google Cloud Console to deploy a GKE cluster
+In the Google Cloud Console, on the Navigation menu (9a951fa6d60a98a5.png), click Kubernetes Engine > Clusters.
+82b6a27127bebd94.png
+
+Click Create cluster to begin creating a GKE cluster.
+
+Examine the console UI and the controls to change the cluster name, the cluster location, Kubernetes version, the number of nodes, and the node resources such as the machine type in the default node pool.
+
+Clusters can be created across a region or in a single zone. A single zone is the default. When you deploy across a region the nodes are deployed to three separate zones and the total number of nodes deployed will be three times higher.
+
+Change the cluster name to standard-cluster-1 and zone to us-central1-a. Leave all the values at their defaults and click Create.
+The cluster begins provisioning.
+
+Note: You need to wait a few minutes for the cluster deployment to complete.
+When provisioning is complete, the Kubernetes Engine > Clusters page looks like the screenshot:
+
+f46327c053cbb49b.png
+
+Click Check my progress to verify the objective.
+Deploy GKE cluster
+
+Click the cluster name standard-cluster-1 to view the cluster details
+6a505cd98a4e854e.png
+
+You can scroll down the page to view more details.
+
+Click the Storage and Nodes tabs under the cluster name (standard-cluster-1) at the top to view more of the cluster details.
+
+Task 2. Modify GKE clusters
+It is easy to modify many of the parameters of existing clusters using either the Google Cloud Console or Cloud Shell. In this task, you use the Google Cloud Console to modify the size of GKE clusters.
+
+In the Google Cloud Console, click Edit at the top of the details page for standard-cluster-1.
+Scroll down to the Node Pools section and click default pool.
+In the Google Cloud Console, click Edit at the top of the details page.
+In the Size section, change the number of nodes from 3 to 4.
+changenode.png
+
+Scroll to the bottom and click Save.
+In the Google Cloud Console, on the Navigation menu (9a951fa6d60a98a5.png), click Kubernetes Engine > Clusters.
+When the operation completes, the Kubernetes Engine > Clusters page should show that standard-cluster-1 now has four nodes.
+
+110af9591326966.png
+
+Click Check my progress to verify the objective.
+Modify GKE clusters
+
+Task 3. Deploy a sample workload
+In this task, using the Google Cloud console you will deploy a Pod running the nginx web server as a sample workload.
+
+In the Google Cloud Console, on the Navigation menu( Navigation menu), click Kubernetes Engine > Workloads.
+Click Deploy to show the Create a deployment wizard.
+b5ff57c1a950cc70.png
+
+Click Continue to accept the default container image, nginx.latest, which deploys a Pod with a single container running the latest version of nginx.
+15d282aa7690eacf.png
+
+Scroll to the bottom of the window and click the Deploy button leaving the Configuration details at the defaults.
+When the deployment completes your screen will refresh to show the details of your new nginx deployment.
+a4a2ee9873a2dc2f.png
+
+Click Check my progress to verify the objective.
+Deploy a sample nginx workload
+
+Task 4. View details about workloads in the Google Cloud Console
+In this task, you view details of your GKE workloads directly in the Google Cloud Console.
+
+In the Google Cloud Console, on the Navigation menu (Navigation menu), click Kubernetes Engine > Workloads.
+32a95eb42719841a.png
+
+In the Google Cloud Console, on the Kubernetes Engine > Workloads page, click nginx-1.
+You may see Pods (3/3) as the default deployment will start with three pods but will scale back to 1 after a few minutes. You can continue with the lab.
+This displays the overview information for the workload showing details like resource utilization charts, links to logs, and details of the Pods associated with this workload.
+
+871369f92b245567.png
+
+In the Google Cloud Console, click the Details tab for the nginx-1 workload. The Details tab shows more details about the workload including the Pod specification, number and status of Pod replicas and details about the horizontal Pod autoscaler.
+b71b95bf5d1ff3e5.png
+
+Click the Revision History tab. This displays a list of the revisions that have been made to this workload.
+b2532b5efc81c672.png
+
+Click the Events tab. This tab lists events associated with this workload.
+2a770ffe99a8ae05.png
+
+And then the YAML tab. This tab provides the complete YAML file that defines this components and full configuration of this sample workload.
+1f074ceacbc117f4.png
+
+Still in the Google Cloud Console's Details tab for the nginx-1 workload, click the Overview tab, scroll down to the Managed Pods section and click the name of one of the Pods to view the details page for that Pod.
+4183f157b2afea06.png
+
+Note:
+
+The default deployment will start with three pods but will scale back to 1 after a few minutes so you may need to refresh the Overview page to make sure you have a valid Pod to inspect.
+
+The Pod Details page provides information on the Pod configuration and resource utilization and the node where the Pod is running.
+1c7955b9e33f3f5b.png
+
+In the Pod details page, you can click the Events and Logs tabs to view event details and links to container logs in Cloud Operations.
+event.png
+
+logs.png
+
+Click the YAML tab to view the detailed YAML file for the Pod configuration.
+a3174a5f4dcf8b68.png
+
+
+***
+
+## Lab3: Deploying Google Kubernetes Engine
+1 hour
+Free
+Rate Lab
+Overview
+In this lab, you use the Google Cloud Console to build GKE clusters and deploy a sample Pod.
+
+Objectives
+In this lab, you learn how to perform the following tasks:
+
+Use the Google Cloud Console to build and manipulate GKE clusters
+
+Use the Google Cloud Console to deploy a Pod
+
+Use the Google Cloud Console to examine the cluster and Pods
+
+Task 0. Lab Setup
+Access Qwiklabs
+For each lab, you get a new GCP project and set of resources for a fixed time at no cost.
+
+Make sure you signed into Qwiklabs using an incognito window.
+
+Note the lab's access time (for example, img/time.png and make sure you can finish in that time block.
+
+There is no pause feature. You can restart if needed, but you have to start at the beginning.
+
+When ready, click img/start_lab.png.
+
+Note your lab credentials. You will use them to sign in to Cloud Platform Console. img/open_google_console.png
+
+Click Open Google Console.
+
+Click Use another account and copy/paste credentials for this lab into the prompts.
+
+If you use other credentials, you'll get errors or incur charges.
+
+Accept the terms and skip the recovery resource page.
+Do not click End Lab unless you are finished with the lab or want to restart it. This clears your work and removes the project.
+
+After you complete the initial sign-in steps, the project dashboard appears.
+
+c679b27aa332f22d.png
+
+Task 1. Deploy GKE clusters
+In this task, you use the Google Cloud Console and Cloud Shell to deploy GKE clusters.
+
+Use the Google Cloud Console to deploy a GKE cluster
+In the Google Cloud Console, on the Navigation menu (9a951fa6d60a98a5.png), click Kubernetes Engine > Clusters.
+82b6a27127bebd94.png
+
+Click Create cluster to begin creating a GKE cluster.
+
+Examine the console UI and the controls to change the cluster name, the cluster location, Kubernetes version, the number of nodes, and the node resources such as the machine type in the default node pool.
+
+Clusters can be created across a region or in a single zone. A single zone is the default. When you deploy across a region the nodes are deployed to three separate zones and the total number of nodes deployed will be three times higher.
+
+Change the cluster name to standard-cluster-1 and zone to us-central1-a. Leave all the values at their defaults and click Create.
+The cluster begins provisioning.
+
+Note: You need to wait a few minutes for the cluster deployment to complete.
+When provisioning is complete, the Kubernetes Engine > Clusters page looks like the screenshot:
+
+f46327c053cbb49b.png
+
+Click Check my progress to verify the objective.
+Deploy GKE cluster
+
+Click the cluster name standard-cluster-1 to view the cluster details
+6a505cd98a4e854e.png
+
+You can scroll down the page to view more details.
+
+Click the Storage and Nodes tabs under the cluster name (standard-cluster-1) at the top to view more of the cluster details.
+
+Task 2. Modify GKE clusters
+It is easy to modify many of the parameters of existing clusters using either the Google Cloud Console or Cloud Shell. In this task, you use the Google Cloud Console to modify the size of GKE clusters.
+
+In the Google Cloud Console, click Edit at the top of the details page for standard-cluster-1.
+Scroll down to the Node Pools section and click default pool.
+In the Google Cloud Console, click Edit at the top of the details page.
+In the Size section, change the number of nodes from 3 to 4.
+changenode.png
+
+Scroll to the bottom and click Save.
+In the Google Cloud Console, on the Navigation menu (9a951fa6d60a98a5.png), click Kubernetes Engine > Clusters.
+When the operation completes, the Kubernetes Engine > Clusters page should show that standard-cluster-1 now has four nodes.
+
+110af9591326966.png
+
+Click Check my progress to verify the objective.
+Modify GKE clusters
+
+Task 3. Deploy a sample workload
+In this task, using the Google Cloud console you will deploy a Pod running the nginx web server as a sample workload.
+
+In the Google Cloud Console, on the Navigation menu( Navigation menu), click Kubernetes Engine > Workloads.
+Click Deploy to show the Create a deployment wizard.
+b5ff57c1a950cc70.png
+
+Click Continue to accept the default container image, nginx.latest, which deploys a Pod with a single container running the latest version of nginx.
+15d282aa7690eacf.png
+
+Scroll to the bottom of the window and click the Deploy button leaving the Configuration details at the defaults.
+When the deployment completes your screen will refresh to show the details of your new nginx deployment.
+a4a2ee9873a2dc2f.png
+
+Click Check my progress to verify the objective.
+Deploy a sample nginx workload
+
+Task 4. View details about workloads in the Google Cloud Console
+In this task, you view details of your GKE workloads directly in the Google Cloud Console.
+
+In the Google Cloud Console, on the Navigation menu (Navigation menu), click Kubernetes Engine > Workloads.
+32a95eb42719841a.png
+
+In the Google Cloud Console, on the Kubernetes Engine > Workloads page, click nginx-1.
+You may see Pods (3/3) as the default deployment will start with three pods but will scale back to 1 after a few minutes. You can continue with the lab.
+This displays the overview information for the workload showing details like resource utilization charts, links to logs, and details of the Pods associated with this workload.
+
+871369f92b245567.png
+
+In the Google Cloud Console, click the Details tab for the nginx-1 workload. The Details tab shows more details about the workload including the Pod specification, number and status of Pod replicas and details about the horizontal Pod autoscaler.
+b71b95bf5d1ff3e5.png
+
+Click the Revision History tab. This displays a list of the revisions that have been made to this workload.
+b2532b5efc81c672.png
+
+Click the Events tab. This tab lists events associated with this workload.
+2a770ffe99a8ae05.png
+
+And then the YAML tab. This tab provides the complete YAML file that defines this components and full configuration of this sample workload.
+1f074ceacbc117f4.png
+
+Still in the Google Cloud Console's Details tab for the nginx-1 workload, click the Overview tab, scroll down to the Managed Pods section and click the name of one of the Pods to view the details page for that Pod.
+4183f157b2afea06.png
+
+Note:
+
+The default deployment will start with three pods but will scale back to 1 after a few minutes so you may need to refresh the Overview page to make sure you have a valid Pod to inspect.
+
+The Pod Details page provides information on the Pod configuration and resource utilization and the node where the Pod is running.
+1c7955b9e33f3f5b.png
+
+In the Pod details page, you can click the Events and Logs tabs to view event details and links to container logs in Cloud Operations.
+event.png
+
+logs.png
+
+Click the YAML tab to view the detailed YAML file for the Pod configuration.
+a3174a5f4dcf8b68.png
+
+![yaml file](img/assets/lab3_yaml.png)
+
+
+
+
+
+
+
+
 
 
 
