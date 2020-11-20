@@ -540,6 +540,9 @@ Install the nginx Web server and customize the welcome page.
 On the Navigation menu (Navigation menu ), click Compute Engine > VM instances. Click the link in the External IP column for your first VM. A new browser tab opens, containing a Web page that contains the cat image
 
 
+### Note.
+Some steps were missing, such as `cd orchestrate-with-kubernetes` and "stop SSH window and enter `sudo cp index.nginx-debian.html /var/www/html` in a new one.
+
 ***
 
 
